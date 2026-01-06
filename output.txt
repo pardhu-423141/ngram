@@ -1,0 +1,20 @@
+sentence : the day was very
+Predicted word :  long,
+Output sentence: the day was very long,
+
+sentence : hello good to see
+Predicted word :  the
+Output sentence: hello good to see the
+
+sentence : hello good to see the
+Predicted word :  other
+Output sentence: hello good to see the other
+
+sentence : hello good to see the other
+Predicted word :  in
+Output sentence: hello good to see the other in
+
+sentence : good to see the other in
+Predicted word :  a
+Output sentence: good to see the other in a
+

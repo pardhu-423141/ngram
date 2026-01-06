@@ -21,27 +21,28 @@ def find_next_word(tokens):
 
     for context_len in range(max_context, 0, -1):
         context = tuple(tokens[-context_len:])
-        print(context_len,context)
         if context in grams[context_len]:
             next_words = grams[context_len][context]
             word = max(next_words, key=next_words.get)
-            return "." if word == "</s>" else word
+            return "." if word == "</s>" else " "+word
 
-    # Unigram fallback
     unigram = grams[0]
     word = max(unigram, key=unigram.get)
     return "." if word == "</s>" else word
 
 def test():
     n = int(input("No of sentences: "))
-    print(grams[4][('the','day','was','very')])
-    print(grams[1][('very')])
-    for _ in range(n):
-        s = input()
-        tokenized = tokenize_text(s)
-        tokens = tokenized[0][:-1]     
-        next_word = find_next_word(tokens)
-        print(s + " " + next_word)
+    
+    with open("output.txt", "w", encoding="utf-8") as f:
+        for _ in range(n):
+            s = input("sentence : ")
+            f.write(f"sentence : {s}\n")
+            tokenized = tokenize_text(s)
+            tokens = tokenized[-1][:-1]     
+            next_word = find_next_word(tokens)
+            f.write(f"Predicted word : {next_word}\n")
+            f.write(f"Output sentence: {s + ("." if next_word == "." else next_word)}\n\n")
+            print(s + ("." if next_word == "." else next_word))
 
 if __name__ == "__main__":
     do_train = 0

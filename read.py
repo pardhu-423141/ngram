@@ -2,9 +2,6 @@ import requests
 import re
 import time
 
-# ---------------------------------
-# Fetch book text safely
-# ---------------------------------
 def fetch_book_text(book_id, retries=3):
     urls = [
         f"https://www.gutenberg.org/files/{book_id}/{book_id}-0.txt",
@@ -25,9 +22,6 @@ def fetch_book_text(book_id, retries=3):
     return None
 
 
-# ---------------------------------
-# Remove Gutenberg header/footer
-# ---------------------------------
 def remove_gutenberg_metadata(text):
     if not text:
         return None
@@ -42,9 +36,6 @@ def remove_gutenberg_metadata(text):
     return text.strip()
 
 
-# ---------------------------------
-# Skip front matter
-# ---------------------------------
 def skip_front_matter(text):
     chapter_pattern = re.compile(
         r'\b(chapter\s+(one|\d+|i+)|act\s+i)\b',
@@ -58,9 +49,6 @@ def skip_front_matter(text):
     return text
 
 
-# ---------------------------------
-# Tokenization
-# ---------------------------------
 def tokenize_text(text):
     text = text.lower()
     sentences = re.split(r'[.!?]', text)
@@ -70,13 +58,9 @@ def tokenize_text(text):
     for s in sentences:
         words = s.split()
         tokenized.append(['<s>'] + words + ['</s>'])
-
     return tokenized
 
 
-# ---------------------------------
-# Read book list
-# ---------------------------------
 def read_books_file(path):
     books = []
     with open(path, "r", encoding="utf-8") as f:
@@ -87,9 +71,6 @@ def read_books_file(path):
     return books
 
 
-# ---------------------------------
-# MAIN FUNCTION (SAFE)
-# ---------------------------------
 def build_tokenized_corpus(book_file):
     all_tokenized = []
 
