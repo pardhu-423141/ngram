@@ -2,10 +2,11 @@ from read import build_tokenized_corpus
 from collections import Counter, defaultdict
 import pickle
 import os
+
 def train():
     os.makedirs("ngrams", exist_ok=True)
 
-    # IMPORTANT: call function explicitly
+    
     tokenized = build_tokenized_corpus("jane_austen_book_ids.txt")
 
     unigrams = Counter()
@@ -28,7 +29,7 @@ def train():
             if i + 4 < n:
                 fivegrams[(sentence[i], sentence[i+1], sentence[i+2], sentence[i+3])][sentence[i+4]] += 1
 
-    # Save
+    
     pickle.dump(unigrams, open("ngrams/unigrams.pkl", "wb"))
     pickle.dump(bigrams, open("ngrams/bigrams.pkl", "wb"))
     pickle.dump(trigrams, open("ngrams/trigrams.pkl", "wb"))

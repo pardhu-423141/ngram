@@ -16,7 +16,7 @@ def fetch_book_text(book_id, retries=3):
                 return response.text
             except Exception as e:
                 if attempt == retries - 1:
-                    print(f"❌ Failed {book_id} from {url}")
+                    print(f"Failed {book_id} from {url}")
                 time.sleep(1)
 
     return None
@@ -81,7 +81,7 @@ def build_tokenized_corpus(book_file):
 
         raw = fetch_book_text(book_id)
         if not raw:
-            print(f"⚠ Skipping {title}")
+            print(f"Skipping {title}")
             continue
 
         clean = remove_gutenberg_metadata(raw)
