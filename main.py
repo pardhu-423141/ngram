@@ -1,7 +1,8 @@
 from read import tokenize_text
 from train import train
 import pickle
-
+import os
+from fetch_book_id import fetch
 grams = []
 
 def extract():
@@ -46,7 +47,13 @@ def test():
 
 if __name__ == "__main__":
     do_train = 0
-    extract()
+    if not os.path.isfile("jane_austen_book_ids.txt"):
+        print()
+        fetch()
     if do_train:
+        print("Training the model...")
         train()
+    print("Loading the model...")
+    extract()
+    print("Model loaded.")
     test()
